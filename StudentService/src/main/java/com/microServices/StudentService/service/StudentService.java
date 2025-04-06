@@ -69,18 +69,6 @@ public class StudentService {
     studentRepository.delete(student);
   }
 
-  // DTO MAPPERS
-  private StudentDetailsDTO studentModelToStudentDetailsDTO(StudentModel student) {
-    return StudentDetailsDTO
-        .builder()
-        .name(student.getName())
-        .deptId(student.getDeptId())
-        .address(student.getAddress())
-        .phoneNumber(student.getPhoneNumber())
-        .registerNumber(student.getRegisterNumber())
-        .build();
-  }
-
   // CHECKERS
   private void checkStudent(StudentModel student) throws StudentException {
     if (student.getRegisterNumber() == null || student.getRegisterNumber() < 0) {
@@ -100,4 +88,27 @@ public class StudentService {
     }
   }
 
+  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer id) throws StudentException {
+    if (id == null || id < 0) {
+      throw new IllegalArgumentException("Invalid id");
+    }
+    List<StudentModel> students = studentRepository.findByDeptId(id)
+        .orElseThrow(() -> new StudentException("Student Not Found"));
+    return students
+        .stream()
+        .map((student) -> this.studentModelToStudentDetailsDTO(student))
+        .collect(Collectors.toList());
+  }
+
+  // DTO MAPPERS
+  private StudentDetailsDTO studentModelToStudentDetailsDTO(StudentModel student) {
+    return StudentDetailsDTO
+        .builder()
+        .name(student.getName())
+        .deptId(student.getDeptId())
+        .address(student.getAddress())
+        .phoneNumber(student.getPhoneNumber())
+        .registerNumber(student.getRegisterNumber())
+        .build();
+  }
 }

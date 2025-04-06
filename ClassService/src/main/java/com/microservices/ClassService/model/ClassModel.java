@@ -1,33 +1,38 @@
-package  com.microServices.StudentService.model;
+package com.microservices.ClassService.model;
 
+import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "students")
-@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentModel {
+@Builder
+public class ClassModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Long id;
+  private Integer id;
 
-  private Long registerNumber;
   private String name;
-  private String password;
-  private Long phoneNumber;
-  private String address;
+
+  private String section;
+
   private Integer deptId;
-  private Integer classId;
+
+  @ElementCollection
+  private List<Integer> studentId;
+
+  @ElementCollection
+  private List<Integer> staffId;
+
 }

@@ -51,7 +51,7 @@ public class StudentController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<StudentDetailsDTO> getByStudenttId(@PathVariable("id") Integer id) {
+  public ResponseEntity<StudentDetailsDTO> getByStudentId(@PathVariable("id") Integer id) {
     try {
       return ResponseEntity.ok(studentService.getById(id));
     } catch (StudentException e) {
@@ -99,6 +99,20 @@ public class StudentController {
           .body("Student not found");
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+    }
+  }
+
+  @GetMapping("/dept/{deptId}")
+  public ResponseEntity<List<StudentDetailsDTO>> getStudentByDepartmentId(@PathVariable("deptId") Integer id) {
+    try {
+      return ResponseEntity.ok(studentService.getStudentByDepartmentId(id));
+    } catch (StudentException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body(Collections.singletonList(StudentDetailsDTO.builder().build()));
+    } catch (Exception e) {
+      LOG.error("Error in the getAll : {} ", e.toString());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(Collections.singletonList(StudentDetailsDTO.builder().build()));
     }
   }
 

@@ -9,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient("STUDENT-SERVICE")
 public interface StudentClient {
@@ -20,9 +17,12 @@ public interface StudentClient {
   public ResponseEntity<List<StudentDetailsDTO>> getAll();
 
   @GetMapping("/{id}")
-  public ResponseEntity<StudentDetailsDTO> getByStudenttId(@PathVariable("id") Integer id);
-
+  public ResponseEntity<StudentDetailsDTO> getByStudentId(@PathVariable("id") Integer id);
 
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> deleteStudent(@PathVariable("id") int id);
+
+  @GetMapping("/student/dept/{deptId}")
+  public ResponseEntity<List<StudentDetailsDTO>> getStudentByDepartmentId(@PathVariable("deptId") Integer id);
+
 }
