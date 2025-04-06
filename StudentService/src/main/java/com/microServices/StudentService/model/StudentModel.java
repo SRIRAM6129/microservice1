@@ -1,4 +1,5 @@
-package com.mircroService.departmentService.model;
+package  com.microServices.StudentService.model;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,15 +12,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "department")
+@Table(name = "students")
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentModel {
+@NoArgsConstructor
+public class StudentModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Integer id;
+  private Long id;
+
+  private Long registerNumber;
   private String name;
+  private String password;
+  private Integer deptId;
+  private Long phoneNumber;
+  private String address;
 }

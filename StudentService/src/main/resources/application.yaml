@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Student-Service
+  config:
+    import: "configserver:http://localhost:8500"
