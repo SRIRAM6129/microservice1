@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentDetailsDTO {
-
   private long registerNumber;
   private String name;
   private int deptId;

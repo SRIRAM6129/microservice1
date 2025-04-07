@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClassNameDTO {
   private int id;
-  private String name;
+  private Integer deptId;
+  private String section;
   
 }

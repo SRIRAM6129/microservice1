@@ -1,8 +1,6 @@
 package com.microservices.ClassService.model;
 
-import java.util.List;
-
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,11 +21,10 @@ public class ClassModel {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer id;
 
-  private String name;
-
+  @Column(name = "Section", nullable = false)
   private String section;
 
+  @Column(name = "Department_id", nullable = false)
   private Integer deptId;
-
 
 }

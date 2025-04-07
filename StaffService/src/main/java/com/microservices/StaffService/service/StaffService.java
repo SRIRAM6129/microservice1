@@ -3,6 +3,9 @@ package com.microservices.StaffService.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.microservices.StaffService.client.ClassClient;
+import com.microservices.StaffService.client.DepartmentClient;
+import com.microservices.StaffService.client.StudentClient;
 import com.microservices.StaffService.dto.StaffDTO;
 import com.microservices.StaffService.exception.StaffException;
 import com.microservices.StaffService.model.StaffModel;
@@ -16,8 +19,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class StaffService {
 
+  // DEPENDENCY INJECTIONS
   @Autowired
   private StaffRepository staffRepository;
+  @Autowired
+  private DepartmentClient departmentClient;
+  @Autowired
+  private StudentClient studentClient;
+  @Autowired
+  private ClassClient classClient;
 
   // DEFAULT CRUD OPERATION
 
@@ -58,13 +68,5 @@ public class StaffService {
     staffRepository.delete(existingstaff);
   }
 
-  public List<StaffDTO> getStaffByClassId(Integer staffId) {
-    List<StaffModel> staffs = staffRepository.findAll();
-    return staffs
-        .stream().filter((staff) -> staff.getClassesId() != null && staff.getClassesId().contains(staffId))
-        .map((staff) -> StaffDTO.builder()
-            .name(staff.getName()).deptId(staff.getDeptId()).phoneNumber(staff.getPhoneNumber()).build())
-        .collect(Collectors.toList());
-  }
 
 }

@@ -80,14 +80,4 @@ public class StaffController {
     }
   }
 
-  @GetMapping("/{classId}/class")
-  public ResponseEntity<List<StaffDTO>> getStaffByStaffId(@PathVariable("classId") Integer classId) {
-    try {
-      return ResponseEntity.ok(staffService.getStaffByClassId(classId));
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body(Collections.singletonList(StaffDTO.builder().build()));
-
-    }
-  }
 }

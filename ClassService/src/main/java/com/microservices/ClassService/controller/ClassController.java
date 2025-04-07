@@ -84,27 +84,5 @@ public class ClassController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
     }
   }
+  //OTHER SERVICES
 }
-/*
- * @GetMapping("/{classId}/dept")
- * public ResponseEntity<List<ClassNameDTO>>
- * getClassByDeptId(@PathVariable("classId") Integer id) {
- * try {
- * return ResponseEntity.ok(classService.getByDeptId(id));
- * } catch (Exception e) {
- * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
- * .body(Collections.singletonList(ClassNameDTO.builder().build()));
- * }
- * }
- * 
- * @GetMapping("/{id}/staff")
- * public ResponseEntity<List<StaffDTO>> getStaffByClass(@PathVariable("id")
- * Integer id){
- * try {
- * return ResponseEntity.ok(classService.getStaffByClass(id));
- * } catch (Exception e) {
- * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
- * .body(Collections.singletonList(StaffDTO.builder().build()));
- * }
- * }
- */

@@ -3,9 +3,7 @@ package com.mircroService.departmentService.controller;
 import java.util.Collections;
 import java.util.List;
 
-import com.mircroService.departmentService.dto.ClassNameDTO;
 import com.mircroService.departmentService.dto.DepartmentAddDTO;
-import com.mircroService.departmentService.dto.StudentDetailsDTO;
 import com.mircroService.departmentService.model.DepartmentModel;
 import com.mircroService.departmentService.service.DepartmentService;
 
@@ -84,15 +82,4 @@ public class DepartmentController {
   }
 
   // OTHER SERVICE CALLS
-  @GetMapping("/{deptId}/class")
-  public ResponseEntity<List<ClassNameDTO>> getClassByDepartment(@PathVariable("deptId") Integer deptId) {
-    try {
-      return ResponseEntity.ok(departmentService.getClassByDepartment(deptId));
-    } catch (Exception e) {
-      System.out.println(e);
-      return ResponseEntity
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body(Collections.singletonList(null));
-    }
-  }
 }

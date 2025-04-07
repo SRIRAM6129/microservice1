@@ -3,10 +3,8 @@ package com.mircroService.departmentService.service;
 import java.util.List;
 
 import com.mircroService.departmentService.client.ClassClient;
+import com.mircroService.departmentService.client.StaffClient;
 import com.mircroService.departmentService.client.StudentClient;
-import com.mircroService.departmentService.dto.ClassNameDTO;
-import com.mircroService.departmentService.dto.StudentDetailsDTO;
-import com.mircroService.departmentService.exception.DepartmentException;
 import com.mircroService.departmentService.model.DepartmentModel;
 import com.mircroService.departmentService.repository.DepartmentRepository;
 
@@ -17,15 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class DepartmentService {
 
+  // DEPENDENCY INJECTIONS
   @Autowired
   private DepartmentRepository departmentRepository;
-
   @Autowired
   private StudentClient studentClient;
-
   @Autowired
   private ClassClient classClient;
-  //DEFAULT CRUD OPERATIONS
+  @Autowired
+  private StaffClient staffClient;
+
+  // DEFAULT CRUD OPERATIONS
   public List<DepartmentModel> getAllDepartment() {
     return departmentRepository.findAll();
   }
@@ -58,16 +58,6 @@ public class DepartmentService {
     departmentRepository.deleteById(id);
   }
 
-  //OTHER SERVICE API CALLS
-  public List<ClassNameDTO> getClassByDepartment(Integer id){
-    List<ClassNameDTO> classes = classClient.getClassByDeptId(id).getBody();
-    return classes;
-  }
-  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer deptId) throws DepartmentException {
-    if (!departmentRepository.existsById(deptId)) {
-      throw new DepartmentException("Department not found");
-    }
-    return studentClient.getStudentByDepartmentId(deptId).getBody();
-  }
+  // OTHER SERVICE API CALLS
 
 }

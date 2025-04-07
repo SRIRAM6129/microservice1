@@ -19,17 +19,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class StudentService {
 
+  // DEPENDENCY INJECTIONS
   @Autowired
   private StudentRepository studentRepository;
-
-  @Autowired
-  private StaffClient staffClient;
-
-  @Autowired
-  private ClassClient classClient;
-
   @Autowired
   private DepartmentClient departmentClient;
+  @Autowired
+  private ClassClient classClient;
+  @Autowired
+  private StaffClient staffClient;
 
   // DEFAULT CRUD OPERATIONS
   public List<StudentDetailsDTO> getAllStudent() throws StudentException {
@@ -122,6 +120,7 @@ public class StudentService {
         .orElseThrow(() -> new StudentException("Student Not Found"));
     return students
         .stream()
+        .filter((student) -> student.getDeptId() > 0 && student.getDeptId() == id)
         .map((student) -> this.studentModelToStudentDetailsDTO(student))
         .collect(Collectors.toList());
   }
