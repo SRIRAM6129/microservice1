@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient("CLASS-SERVICE")
 public interface ClassClient {
 
-
   @GetMapping("/class/{classId}/dept")
   public ResponseEntity<List<ClassNameDTO>> getClassByDeptId(@PathVariable("classId") Integer id);
 
-
-  
 }

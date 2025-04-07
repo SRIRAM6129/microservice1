@@ -28,18 +28,10 @@ public class DepartmentController {
   @Autowired
   private DepartmentService departmentService;
 
+  //DEFAULT CRUD 
   @GetMapping("/")
   public String greet() {
     return "DEPARTMENT SERVICE IS UP";
-  }
-
-  @GetMapping()
-  public ResponseEntity<List<StudentDetailsDTO>> fetchStudentByDepartment(@PathVariable("deptId") Integer deptId) {
-    try {
-      return ResponseEntity.ok(departmentService.getStudentByDepartmentId(deptId));
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-    }
   }
 
   @GetMapping("/all")
@@ -91,6 +83,7 @@ public class DepartmentController {
     }
   }
 
+  // OTHER SERVICE CALLS
   @GetMapping("/{deptId}/class")
   public ResponseEntity<List<ClassNameDTO>> getClassByDepartment(@PathVariable("deptId") Integer deptId) {
     try {

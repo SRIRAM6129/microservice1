@@ -31,6 +31,8 @@ public class StudentController {
   @Autowired
   private StudentService studentService;
 
+  //DEFAULT CRUD OPERATIONS
+
   @GetMapping("/")
   public String server() {
     return "Student Server is Up";
@@ -102,6 +104,7 @@ public class StudentController {
     }
   }
 
+  //OTHER SERVICES CALLS
   @GetMapping("/dept/{deptId}")
   public ResponseEntity<List<StudentDetailsDTO>> getStudentByDepartmentId(@PathVariable("deptId") Integer id) {
     try {

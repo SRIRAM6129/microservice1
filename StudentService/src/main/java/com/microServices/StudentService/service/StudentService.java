@@ -3,6 +3,9 @@ package com.microServices.StudentService.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.microServices.StudentService.client.ClassClient;
+import com.microServices.StudentService.client.DepartmentClient;
+import com.microServices.StudentService.client.StaffClient;
 import com.microServices.StudentService.dto.StudentDetailsDTO;
 import com.microServices.StudentService.exception.StudentException;
 import com.microServices.StudentService.model.StudentModel;
@@ -19,6 +22,16 @@ public class StudentService {
   @Autowired
   private StudentRepository studentRepository;
 
+  @Autowired
+  private StaffClient staffClient;
+
+  @Autowired
+  private ClassClient classClient;
+
+  @Autowired
+  private DepartmentClient departmentClient;
+
+  // DEFAULT CRUD OPERATIONS
   public List<StudentDetailsDTO> getAllStudent() throws StudentException {
     List<StudentModel> students = studentRepository.findAll();
     if (students == null) {
@@ -88,18 +101,6 @@ public class StudentService {
     }
   }
 
-  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer id) throws StudentException {
-    if (id == null || id < 0) {
-      throw new IllegalArgumentException("Invalid id");
-    }
-    List<StudentModel> students = studentRepository.findByDeptId(id)
-        .orElseThrow(() -> new StudentException("Student Not Found"));
-    return students
-        .stream()
-        .map((student) -> this.studentModelToStudentDetailsDTO(student))
-        .collect(Collectors.toList());
-  }
-
   // DTO MAPPERS
   private StudentDetailsDTO studentModelToStudentDetailsDTO(StudentModel student) {
     return StudentDetailsDTO
@@ -110,5 +111,18 @@ public class StudentService {
         .phoneNumber(student.getPhoneNumber())
         .registerNumber(student.getRegisterNumber())
         .build();
+  }
+
+  // OTHER SERVICE CALLS
+  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer id) throws StudentException {
+    if (id == null || id < 0) {
+      throw new IllegalArgumentException("Invalid id");
+    }
+    List<StudentModel> students = studentRepository.findByDeptId(id)
+        .orElseThrow(() -> new StudentException("Student Not Found"));
+    return students
+        .stream()
+        .map((student) -> this.studentModelToStudentDetailsDTO(student))
+        .collect(Collectors.toList());
   }
 }

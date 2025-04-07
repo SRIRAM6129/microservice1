@@ -25,7 +25,7 @@ public class DepartmentService {
 
   @Autowired
   private ClassClient classClient;
-
+  //DEFAULT CRUD OPERATIONS
   public List<DepartmentModel> getAllDepartment() {
     return departmentRepository.findAll();
   }
@@ -33,13 +33,6 @@ public class DepartmentService {
   public DepartmentModel getById(int id) {
     return departmentRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("The department not found"));
-  }
-
-  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer deptId) throws DepartmentException {
-    if (!departmentRepository.existsById(deptId)) {
-      throw new DepartmentException("Department not found");
-    }
-    return studentClient.getStudentByDepartmentId(deptId).getBody();
   }
 
   public String addNewDepartment(String name) {
@@ -65,9 +58,16 @@ public class DepartmentService {
     departmentRepository.deleteById(id);
   }
 
+  //OTHER SERVICE API CALLS
   public List<ClassNameDTO> getClassByDepartment(Integer id){
     List<ClassNameDTO> classes = classClient.getClassByDeptId(id).getBody();
     return classes;
+  }
+  public List<StudentDetailsDTO> getStudentByDepartmentId(Integer deptId) throws DepartmentException {
+    if (!departmentRepository.existsById(deptId)) {
+      throw new DepartmentException("Department not found");
+    }
+    return studentClient.getStudentByDepartmentId(deptId).getBody();
   }
 
 }

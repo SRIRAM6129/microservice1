@@ -3,9 +3,6 @@ package com.microservices.ClassService.controller;
 import java.util.Collections;
 import java.util.List;
 
-import com.microservices.ClassService.dto.ClassDetailsDTO;
-import com.microservices.ClassService.dto.ClassNameDTO;
-import com.microservices.ClassService.dto.StaffDTO;
 import com.microservices.ClassService.dto.StudentDetailsDTO;
 import com.microservices.ClassService.exception.ClassException;
 import com.microservices.ClassService.model.ClassModel;
@@ -34,28 +31,80 @@ public class ClassController {
   @Autowired
   private ClassService classService;
 
+  // DEFAULT CRUD OPERATIONS
   @GetMapping("/")
   public String server() {
     return "Class Server is Up";
   }
 
-  @GetMapping("/{classId}/dept")
-  public ResponseEntity<List<ClassNameDTO>> getClassByDeptId(@PathVariable("classId") Integer id) {
+  @GetMapping("/all")
+  public ResponseEntity<List<ClassModel>> getAll() {
     try {
-      return ResponseEntity.ok(classService.getByDeptId(id));
+      return ResponseEntity.ok(classService.getAll());
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body(Collections.singletonList(ClassNameDTO.builder().build()));
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
   }
 
-  @GetMapping("/{id}/staff")
-  public ResponseEntity<List<StaffDTO>> getStaffByClass(@PathVariable("id") Integer id){
+  @GetMapping("/{id}")
+  public ResponseEntity<ClassModel> getClassById(@PathVariable("id") Integer id) {
     try {
-      return ResponseEntity.ok(classService.getStaffByClass(id));
+      return ResponseEntity.ok(classService.getById(id));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body(Collections.singletonList(StaffDTO.builder().build()));
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+  }
+
+  @PostMapping("/add")
+  public ResponseEntity<String> addClass(@RequestBody ClassModel classModel) {
+    try {
+      classService.addClass(classModel);
+      return ResponseEntity.ok("Class added succesfully");
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
+    }
+  }
+
+  @PutMapping("/update")
+  public ResponseEntity<String> updateClass(@RequestBody ClassModel classModel) {
+    try {
+      classService.updateClass(classModel);
+      return ResponseEntity.ok("Class updated succesfully");
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
+    }
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<String> deleteClass(@PathVariable("id") int id) {
+    try {
+      classService.deleteClass(id);
+      return ResponseEntity.ok("Class deleted succesfully");
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
     }
   }
 }
+/*
+ * @GetMapping("/{classId}/dept")
+ * public ResponseEntity<List<ClassNameDTO>>
+ * getClassByDeptId(@PathVariable("classId") Integer id) {
+ * try {
+ * return ResponseEntity.ok(classService.getByDeptId(id));
+ * } catch (Exception e) {
+ * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+ * .body(Collections.singletonList(ClassNameDTO.builder().build()));
+ * }
+ * }
+ * 
+ * @GetMapping("/{id}/staff")
+ * public ResponseEntity<List<StaffDTO>> getStaffByClass(@PathVariable("id")
+ * Integer id){
+ * try {
+ * return ResponseEntity.ok(classService.getStaffByClass(id));
+ * } catch (Exception e) {
+ * return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+ * .body(Collections.singletonList(StaffDTO.builder().build()));
+ * }
+ * }
+ */

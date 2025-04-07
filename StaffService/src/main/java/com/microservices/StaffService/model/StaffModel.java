@@ -1,4 +1,4 @@
-package com.microservices.ClassService.model;
+package com.microservices.StaffService.model;
 
 import java.util.List;
 
@@ -14,20 +14,17 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ClassModel {
+public class StaffModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer id;
-
   private String name;
-
-  private String section;
-
+  private Long phoneNumber;
   private Integer deptId;
-
-
+  @ElementCollection
+  private List<Integer> classesId;
 }
