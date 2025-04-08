@@ -20,7 +20,6 @@ public class ClassModel {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer id;
-
   @Column(name = "Section", nullable = false)
   private String section;
 

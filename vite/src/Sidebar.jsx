@@ -1,9 +1,7 @@
-import ritLogo from "./assets/RIT.jpeg"
 const Sidebar = () => {
   return (
     <div className="fixed top-0 left-0 h-screen w-[250px] bg-white text-white flex justify-center  flex-col shadow-2xl ">
       <div className=" flex justify-center items-center px-4 py-4">
-        <img src={ritLogo} alt="RIT LOGO" className="  object-contain " />
       </div>
       <ul className="flex-1  bg-sidebarColor h-[90%]  flex flex-col gap-2 items-end py-4">
 

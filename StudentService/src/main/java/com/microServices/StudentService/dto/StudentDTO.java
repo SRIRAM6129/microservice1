@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDetailsDTO {
-  private long registerNumber;
+public class StudentDTO {
+
+  private Integer id;
   private String name;
-  private String department;
-  private long phoneNumber;
-  private String address;
-  private int classId;
+  private Long registerNumber;
+  private Integer section;
+  private Integer department;
+  private Integer batch;
+  private String Year;
 }

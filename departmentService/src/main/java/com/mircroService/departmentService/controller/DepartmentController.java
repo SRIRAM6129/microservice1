@@ -4,12 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import com.mircroService.departmentService.dto.DepartmentAddDTO;
+import com.mircroService.departmentService.dto.DepartmentDropDTO;
 import com.mircroService.departmentService.model.DepartmentModel;
 import com.mircroService.departmentService.service.DepartmentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/department")
+@CrossOrigin
 public class DepartmentController {
 
   @Autowired
   private DepartmentService departmentService;
 
-  //DEFAULT CRUD 
+  // DEFAULT CRUD
   @GetMapping("/")
   public String greet() {
     return "DEPARTMENT SERVICE IS UP";
@@ -82,4 +85,43 @@ public class DepartmentController {
   }
 
   // OTHER SERVICE CALLS
+  @GetMapping("/{id}/name")
+  public ResponseEntity<String> getDepartmentNameById(@PathVariable("id") Integer id) {
+    try {
+      return ResponseEntity.ok(departmentService.getDepartmentNameById(id));
+    } catch (Exception e) {
+      System.out.println(e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+    }
+  }
+
+  @GetMapping("/all/name")
+  public ResponseEntity<List<DepartmentDropDTO>> getDepartmentName() {
+    try {
+      return ResponseEntity.ok(departmentService.getDepartmentName());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(Collections.singletonList(null));
+    }
+  }
+
+  @GetMapping("/{deptname}/id")
+  public ResponseEntity<Integer> getDepartmentId(@PathVariable("deptname") String deptName) {
+    try {
+      return ResponseEntity.ok(departmentService.getDepartmentId(deptName));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(null);
+    }
+  }
+
+  @GetMapping("/search/dto")
+  public ResponseEntity<List<DepartmentDropDTO>> getDepartmentSearchDTO() {
+    try {
+      return ResponseEntity.ok(departmentService.getDepartmentSearchDTO());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(null);
+    }
+  }
 }

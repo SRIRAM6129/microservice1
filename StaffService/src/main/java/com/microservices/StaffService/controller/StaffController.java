@@ -1,9 +1,7 @@
 package com.microservices.StaffService.controller;
 
-import java.util.Collections;
 import java.util.List;
 
-import com.microservices.StaffService.dto.StaffDTO;
 import com.microservices.StaffService.model.StaffModel;
 import com.microservices.StaffService.service.StaffService;
 

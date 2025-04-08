@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class DepartmentAddDTO {
+public class DepartmentDropDTO {
+  private Integer id;
   private String name;
-  
 }

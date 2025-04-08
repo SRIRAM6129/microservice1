@@ -1,3 +1,4 @@
+
 package com.microServices.StudentService.dto;
 
 import lombok.AllArgsConstructor;
@@ -9,11 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDetailsDTO {
-  private long registerNumber;
+public class ClassDropDTO {
+  private Integer id;
   private String name;
-  private String department;
-  private long phoneNumber;
-  private String address;
-  private int classId;
 }
