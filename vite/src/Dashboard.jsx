@@ -101,8 +101,8 @@ const Dashboard = () => {
         <select value={department} onChange={handleDepartmentChange} className='w-full md:w-1/5 border p-2 rounded'>
           <option value="">Select Department</option>
           <option value={1}>CSE</option>
-          <option value={2}>AIML</option>
-          <option value={3}>AIDS</option>
+          <option value={2}>AIDS</option>
+          <option value={3}>AIML</option>
           <option value={4}>ECE</option>
         </select>
 
